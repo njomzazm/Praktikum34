@@ -1,0 +1,50 @@
+import javax.swing.*;
+
+public class Praktikum34 {
+    public static void main (String [] args) {
+        aufrufUndAusgabe();
+    }
+    static String [] einlesenVonEingaben () {
+        String eingabeZahl = JOptionPane.showInputDialog("Geben Sie eine Zahl ein.");
+        String eingabeKennzeichung = JOptionPane.showInputDialog("Geben Sie an, ob es eine Zahl oder Zeichenkette sein soll.");
+
+        if (eingabeZahl.startsWith("0")) {
+            eingabeZahl = JOptionPane.showInputDialog("Die Zahl darf nicht mit 0 beginnen. Geben Sie nochmal eine Zahl ein.");
+        }
+        if (eingabeZahl.length() > 10) {
+            eingabeZahl = JOptionPane.showInputDialog("Die Zahl darf nicht mehr als 10 Ziffern enthalten. geben Sie nochmal eine Zahl ein.");
+        }
+
+        String [] zahlUndKennzeichung = new String [2];
+        zahlUndKennzeichung[0] = eingabeZahl;
+        zahlUndKennzeichung[1] = eingabeKennzeichung;
+
+        return zahlUndKennzeichung;
+    }
+    static int umwandlung (String [] a) {
+        int b = 0;
+        char c = 0;
+
+        if (a[1].equals("Zahl")) {
+            b = Integer.parseInt(a[0]);
+        } else if (a[1].equals("Zeichenkette")) {
+            for (int i = 0; i < a[0].length(); i++) {
+                c = a[0].charAt(i)  ;
+                b = b + c;
+            }
+        }
+        return b;
+    }
+
+    static void aufrufUndAusgabe() {
+        String [] sArray = einlesenVonEingaben();
+        int ergebnis = umwandlung(sArray);
+
+        if (sArray[1].equals("Zahl")) {
+            System.out.println("Die Zahl " + sArray[0] + " wurde eingegeben.");
+        }
+        if (sArray[1].equals("Zeichenkette")) {
+            System.out.println("Die Ziffern der Zeichenkette " + sArray[0] + " haben als Summe ihrer ASCII-Werte den Wert " + ergebnis);
+        }
+    }
+}
